@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONCEPT — Réservation</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<div class="pg">
+
+  <div class="hero">
+    <button type="button" class="lang-switch" id="lang-switch" onclick="toggleLang()">
+      <span class="lang-opt" data-lang-opt="fr">FR</span>
+      <span class="lang-sep">/</span>
+      <span class="lang-opt" data-lang-opt="en">EN</span>
+    </button>
+
+    <p class="subtitle" data-i18n="hero.subtitle">Réservation mondiale</p>
+    <div class="logo">CON<span>CEPT</span></div>
+    <p class="tagline" data-i18n="hero.tagline">...un espace conçu sans intention finit par le montrer. Les usagers le sentent, même s'ils ne savent pas le nommer...</p>
+    <p class="authors">Warren — Riad AYITOU</p>
+  </div>
+
+  <div class="body">
+    <div class="stats">
+      <div class="stat"><span class="stat-num">120+</span><span class="stat-lbl" data-i18n="stats.architects">Architectes</span></div>
+      <div class="stat"><span class="stat-num">5</span><span class="stat-lbl" data-i18n="stats.continents">Continents</span></div>
+      <div class="stat"><span class="stat-num">49,99 €</span><span class="stat-lbl" data-i18n="stats.perVersion">Par version</span></div>
+      <div class="stat"><span class="stat-num" data-i18n="stats.dateValue">Juin 2026</span><span class="stat-lbl" data-i18n="stats.release">Parution</span></div>
+    </div>
+
+    <div id="form-wrap">
+      <p class="section-label" data-i18n="form.label">Réservation</p>
+      <h2 class="section-title" data-i18n="form.title">Réservez votre exemplaire</h2>
+      <p class="section-desc" data-i18n="form.desc">Amazon ne livre pas partout. Inscrivez-vous pour être notifié dès que CONCEPT est disponible près de chez vous.</p>
+
+      <form id="preorderForm">
+
+        <div class="form-group">
+          <label data-i18n="form.fullname">Nom complet</label>
+          <input type="text" id="fullname" name="fullname" data-i18n-placeholder="form.fullnamePh" placeholder="Votre nom complet" maxlength="80" required />
+        </div>
+        <div class="form-group">
+          <label data-i18n="form.email">Email</label>
+          <input type="email" id="email" name="email" placeholder="email@exemple.com" maxlength="100" required />
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label data-i18n="form.country">Pays</label>
+
+            <div class="country-select" id="country-select">
+              <button type="button" class="country-trigger" id="country-trigger" onclick="toggleCountryList()">
+                <span class="country-trigger-content" id="country-trigger-content">
+                  <span class="country-placeholder" data-i18n="form.countryPh">— Sélectionner —</span>
+                </span>
+                <i class="ti ti-chevron-down country-chevron" aria-hidden="true"></i>
+              </button>
+
+              <div class="country-dropdown" id="country-dropdown">
+                <input type="text" class="country-search" id="country-search" data-i18n-placeholder="form.countrySearchPh" placeholder="Rechercher un pays..." oninput="filterCountries()">
+                <div class="country-list" id="country-list"></div>
+              </div>
+
+              <input type="hidden" id="country" name="country" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="form.city">Ville</label>
+            <input type="text" id="city" name="city" data-i18n-placeholder="form.cityPh" placeholder="Votre ville" maxlength="60" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label data-i18n="form.versionLabel">Choisissez votre version</label>
+        </div>
+        <div class="version-cards">
+          <div class="version-card" id="card-fr" onclick="toggleVersion('fr')">
+            <i class="ti ti-check v-check" aria-hidden="true"></i>
+            <div class="v-lang" data-i18n="version.fr">Version Française</div>
+            <div class="v-price">49,99 €</div>
+            <div class="v-shipping" data-i18n="version.shipping">Livraison offerte</div>
+          </div>
+          <div class="version-card" id="card-en" onclick="toggleVersion('en')">
+            <i class="ti ti-check v-check" aria-hidden="true"></i>
+            <div class="v-lang" data-i18n="version.en">Version Anglaise</div>
+            <div class="v-price">49,99 €</div>
+            <div class="v-shipping" data-i18n="version.shipping">Livraison offerte</div>
+          </div>
+        </div>
+        <p class="version-hint" data-i18n="version.hint">Vous pouvez sélectionner les deux versions.</p>
+
+        <div id="qty-section" style="display:none;">
+          <div class="form-group"><label data-i18n="qty.label">Nombre d'exemplaires</label></div>
+          <div class="qty-block" id="qty-block"></div>
+          <div class="total-bar">
+            <div>
+              <div class="total-label" data-i18n="total.label">Total estimé</div>
+              <div class="total-detail" id="total-detail"></div>
+            </div>
+            <div style="text-align:right;">
+              <div class="total-amount" id="total-amount">0 €</div>
+              <div class="shipping-tag" data-i18n="total.shipping">+ Livraison offerte</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Champs cachés envoyés à EmailJS -->
+        <input type="hidden" id="order_summary" name="order_summary">
+        <input type="hidden" id="total" name="total">
+
+        <button type="submit" class="submit-btn" id="submit-btn" data-i18n="form.submit">Réserver mon exemplaire →</button>
+        <p class="note" data-i18n="form.note">Aucun paiement requis. Vous serez contacté uniquement lorsque le livre sera disponible dans votre région.</p>
+        <p id="error-msg" class="error-msg"></p>
+
+      </form>
+    </div>
+
+    <div class="success" id="success-msg">
+      <div class="success-icon"><i class="ti ti-check" aria-hidden="true"></i></div>
+      <h3 data-i18n="success.title">Réservation confirmée.</h3>
+      <p data-i18n="success.text">Nous vous contacterons dès que CONCEPT est disponible dans votre ville.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="countries.js"></script>
+<script src="i18n.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
