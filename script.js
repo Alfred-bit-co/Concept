@@ -1,6 +1,6 @@
 // ====== CONFIGURATION EMAILJS ======
 const SERVICE_ID = "service_4oywrlt";
-const TEMPLATE_ID = "6je910l";
+const TEMPLATE_ID = "template_6je910l";
 
 if (typeof emailjs !== 'undefined') {
   emailjs.init("INtZifFaMD80O403k");
