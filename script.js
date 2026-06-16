@@ -9,11 +9,11 @@ if (typeof emailjs !== 'undefined') {
 }
 
 // ====== ÉTAT GLOBAL ======
-const PRICE = 49.99;
+const PRICE = 44.99;
 let selected = { fr: false, en: false };
 let qty = { fr: 1, en: 1 };
 let currentLang = "fr";
-let selectedCountry = null; // objet { code, fr, en }
+let selectedCountry = null; 
 
 // ============================================================
 // VERSIONS / QUANTITÉS / TOTAL
@@ -65,7 +65,7 @@ function updateTotal() {
   const detailSuffix = i18nGet(currentLang, 'total.detail');
   document.getElementById('total-amount').textContent = total.toFixed(2).replace('.', ',') + ' €';
   document.getElementById('total-detail').textContent =
-    parts.length ? parts.join(' + ') + ' · 49,99 € ' + detailSuffix : '';
+    parts.length ? parts.join(' + ') + ' · 44,99 € ' + detailSuffix : '';
 }
 
 function buildOrderSummary() {
@@ -351,10 +351,8 @@ form.addEventListener('submit', function (e) {
 
   emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form)
     .then(() => {
-      // Cache le formulaire
+      
       document.getElementById('form-wrap').style.display = 'none';
-
-      // Affiche le message de succès dans la langue active au moment de l'envoi
       const successEl = document.getElementById('success-msg');
       successEl.querySelector('h3').textContent = i18nGet(currentLang, 'success.title');
       successEl.querySelector('p').textContent  = i18nGet(currentLang, 'success.text');
