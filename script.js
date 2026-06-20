@@ -9,7 +9,7 @@ if (typeof emailjs !== 'undefined') {
 }
 
 // ====== ÉTAT GLOBAL ======
-const PRICE = 44.99;
+const PRICE = 39.99;
 let selected = { fr: false, en: false };
 let qty = { fr: 1, en: 1 };
 let currentLang = "fr";
@@ -65,7 +65,7 @@ function updateTotal() {
   const detailSuffix = i18nGet(currentLang, 'total.detail');
   document.getElementById('total-amount').textContent = total.toFixed(2).replace('.', ',') + ' €';
   document.getElementById('total-detail').textContent =
-    parts.length ? parts.join(' + ') + ' · 44,99 € ' + detailSuffix : '';
+    parts.length ? parts.join(' + ') + ' · 39,99 € ' + detailSuffix : '';
 }
 
 function buildOrderSummary() {
