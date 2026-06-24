@@ -112,6 +112,8 @@ function sanitizeFormFields() {
   const emailEl = document.getElementById('email');
   const cityEl = document.getElementById('city');
   const countryOtherEl = document.getElementById('country-other');
+  const phoneEl = document.getElementById('phone');
+  if (phoneEl) phoneEl.value = sanitizeSingleLine(phoneEl.value, 20);
 
   fullnameEl.value = sanitizeSingleLine(fullnameEl.value, 80);
   emailEl.value = sanitizeSingleLine(emailEl.value, 100);
@@ -315,6 +317,7 @@ form.addEventListener('submit', function (e) {
   const email = document.getElementById('email').value.trim();
   const country = document.getElementById('country').value.trim();
   const city = document.getElementById('city').value.trim();
+  const phone = document.getElementById('phone').value.trim();
 
   if (!fullname || !email || !country || !city) {
     errorMsg.textContent = i18nGet(currentLang, 'form.errorFields');
